@@ -12,3 +12,8 @@ class BeeModel(mesa.model):
         for i in range(N):
             b = Bee(i, self)
             self.schedule.add(b)
+
+            # Add the agent to a random grid cell
+            x = self.random.randrange(self.grid.width)
+            y = self.random.randrange(self.grid.height)
+            self.grid.place_agent(b, (x, y))
