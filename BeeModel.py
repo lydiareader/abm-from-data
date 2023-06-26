@@ -2,7 +2,7 @@
 import mesa
 from Bee import Bee
 
-class BeeModel(mesa.model):
+class BeeModel(mesa.Model):
     """A model with a bee. Bzzz"""
     def __init__(self, N, width, height):
         self.num_agents = N

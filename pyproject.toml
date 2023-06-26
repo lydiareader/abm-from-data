@@ -9,6 +9,7 @@ packages = [{include = "abm_from_data"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 mesa = "^1.2.1"
+ipykernel = "^6.23.3"
 
 
 [build-system]
