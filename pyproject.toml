@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "abm-from-data"
+version = "0.1.0"
+description = ""
+authors = ["Lydia Reader <lydia.reader@wustl.edu>"]
+readme = "README.md"
+packages = [{include = "abm_from_data"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+mesa = "^1.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
