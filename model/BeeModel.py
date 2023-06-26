@@ -10,6 +10,7 @@ class BeeModel(mesa.Model):
         self.schedule = mesa.time.RandomActivation(self)
 
         for i in range(N):
+            # create the bees
             b = Bee(i, self)
             self.schedule.add(b)
 
@@ -17,6 +18,8 @@ class BeeModel(mesa.Model):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
             self.grid.place_agent(b, (x, y))
+
+        self.bees = self.schedule.agents    # alias for convenience
     
 
     def step(self):
