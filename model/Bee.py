@@ -10,6 +10,7 @@ class Bee(mesa.Agent):
     
     def step(self):
         self.move()
+        self.check_flower()
 
     
     def move(self):
@@ -22,4 +23,10 @@ class Bee(mesa.Agent):
         self.previous_pos = self.pos
         new_position = self.random.choice(possible_steps)
         self.model.grid.move_agent(self, new_position)
+
+    
+    def check_flower(self):
+        '''Check if there is a flower on the current cell'''
+        cellmates = self.model.grid.get_cell_list_contents([self.pos])
+        self.on_flower = (len(cellmates) > 1)
         
