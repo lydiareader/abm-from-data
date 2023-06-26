@@ -6,7 +6,6 @@ class Bee(mesa.Agent):
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
         self.previous_pos = (0, 0)
-        self.previous_previous_pos = (0, 0)
 
     
     def step(self):
@@ -20,8 +19,7 @@ class Bee(mesa.Agent):
             self.pos,
             moore=False,
             include_center=False)
-        new_position = self.random.choice(list(set(possible_steps) - set(self.previous_previous_pos)))
-        self.previous_previous_pos = self.previous_pos
         self.previous_pos = self.pos
+        new_position = self.random.choice(possible_steps)
         self.model.grid.move_agent(self, new_position)
         
