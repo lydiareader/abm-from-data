@@ -6,9 +6,9 @@ from itertools import product
 
 class BeeModel(mesa.Model):
     """A model with a bee. Bzzz"""
-    def __init__(self, num_bees, num_flowers, width, height):
+    def __init__(self, num_bees, flower_density, width, height):
         self.num_agents = num_bees
-        self.num_flowers = num_flowers
+        self.num_flowers = round(width * height * flower_density)
         self.grid = mesa.space.MultiGrid(width=width, height=height, torus=True)
         self.schedule = mesa.time.RandomActivation(self)
 
@@ -24,8 +24,8 @@ class BeeModel(mesa.Model):
 
         # place the flowers randomly
         flower_pos_options = list(product(range(width), range(height)))
-        flower_pos_list = self.random.sample(flower_pos_options, num_flowers)
-        for j in range(num_flowers):
+        flower_pos_list = self.random.sample(flower_pos_options, self.num_flowers)
+        for j in range(self.num_flowers):
             f = Flower(j + self.num_agents, self)
             self.grid.place_agent(f, flower_pos_list[j])
 
