@@ -3,10 +3,10 @@ import mesa
 
 class Bee(mesa.Agent):
     """Bzzzzzzz"""
-    def __init__(self, unique_id, model):
+    def __init__(self, unique_id, model, p_eat):
         super().__init__(unique_id, model)
         self.previous_pos = (0, 0)
-        self.p_eat = 0.5
+        self.p_eat = p_eat
 
     
     def step(self):

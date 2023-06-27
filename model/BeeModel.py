@@ -6,7 +6,7 @@ from itertools import product
 
 class BeeModel(mesa.Model):
     """A model with a bee. Bzzz"""
-    def __init__(self, num_bees, flower_density, width, height):
+    def __init__(self, num_bees, flower_density, width, height, p_eat):
         self.num_agents = num_bees
         self.num_flowers = round(width * height * flower_density)
         self.grid = mesa.space.MultiGrid(width=width, height=height, torus=True)
@@ -14,7 +14,7 @@ class BeeModel(mesa.Model):
 
         for i in range(num_bees):
             # create the bees
-            b = Bee(i, self)
+            b = Bee(i, self, p_eat)
             self.schedule.add(b)
 
             # Add the agent to a random grid cell
