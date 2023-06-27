@@ -6,11 +6,17 @@ class Bee(mesa.Agent):
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
         self.previous_pos = (0, 0)
+        self.p_eat = 0.5
 
     
     def step(self):
-        self.move()
         self.check_flower()
+        if self.on_flower:
+            if self.random.random() < self.p_eat:
+                self.eat_flower()
+        else: 
+            self.move()
+        
 
     
     def move(self):
@@ -29,4 +35,11 @@ class Bee(mesa.Agent):
         '''Check if there is a flower on the current cell'''
         cellmates = self.model.grid.get_cell_list_contents([self.pos])
         self.on_flower = (len(cellmates) > 1)
+    
+
+    def eat_flower(self):
+        '''Eat from the flower at the current cell'''
+        cell_contents = self.model.grid.get_cell_list_contents([self.pos])
+        flower = list(set(cell_contents) - {self})[0]
+        self.model.grid.remove_agent(flower)
         
