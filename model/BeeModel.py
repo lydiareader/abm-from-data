@@ -25,9 +25,11 @@ class BeeModel(mesa.Model):
         # place the flowers randomly
         flower_pos_options = list(product(range(width), range(height)))
         flower_pos_list = self.random.sample(flower_pos_options, self.num_flowers)
+        self.flowers = []
         for j in range(self.num_flowers):
             f = Flower(j + self.num_agents, self)
             self.grid.place_agent(f, flower_pos_list[j])
+            self.flowers.append(f)
 
 
         self.bees = self.schedule.agents    # alias for convenience
@@ -35,3 +37,11 @@ class BeeModel(mesa.Model):
 
     def step(self):
         self.schedule.step()
+
+    
+    def get_grid_state(self):
+        return {
+            'bees': [b.pos for b in self.bees],
+            'flowers': [f.pos for f in self.flowers]
+        }
+    
