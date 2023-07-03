@@ -5,6 +5,7 @@ Project "abm-from-data" at the Complex Systems Summer School 2023 (Santa Fe Inst
 import numpy as np
 from scipy.stats import qmc
 import matplotlib.pyplot as plt
+import pandas as pd
 
 """ class definitions """
 
@@ -34,8 +35,8 @@ class Sampling():
             
         Returns
         -------
-        samples : numpy array
-            two dimensional numpy array containing the sample points
+        sample_df : pandas data frame
+            Data frame containing the sample coordinates for each parameter.
         """
         if orthogonal:
             sampler = qmc.LatinHypercube(d=self.nr_params, strength=2)
@@ -43,7 +44,12 @@ class Sampling():
             sampler = qmc.LatinHypercube(d=self.nr_params)
         sample_unit_cube = sampler.random(n=nr_values)
         sample = qmc.scale(sample_unit_cube, self.min_values, self.max_values)
-        return sample
+        sample_dict = {self.param_names[k]: \
+                       [sample[i][k] for i in range(len(sample))] \
+                                        for k in range(self.nr_params)}
+        sample_df = pd.DataFrame(sample_dict)
+        #print(sample_df.corr())
+        return sample_df
     
     def grid_sampling(self, nr_values):
         """
@@ -56,28 +62,37 @@ class Sampling():
         
         Returns
         -------
-        samples_array : numpy array
-            numpy array containing all sample points
+        coordinates_array: numpy array
+            numpy array containing the coordinates of the sampling points
         """
-        pass
+        min_and_max_values = zip(self.min_values,self.max_values)
+        coordinates_array = np.meshgrid(*[np.linspace(i,j,nr_values) for i,j in min_and_max_values])
+        return coordinates_array
     
     
 """ main entry point """
 if __name__ == "__main__":
-    """ Illustration """
-    nr_dimensions = 3
-    param_names = ["A", "B", "C"]
-    min_values = [0,0,0]
-    max_values = [1,1,1]
-    nr_values = 25 #needs to be the square of a prime number for the orthogonal case
+    """ Illustration for two dimensions"""
+    param_names = ["A", "B"]
+    min_values = [0,0]
+    max_values = [1,1]
+    nr_values = 9 #needs to be the square of a prime number for the orthogonal case
+    
+    """ Latin hypercubes """
     S = Sampling(param_names=param_names,
                  min_values=min_values,
                  max_values=max_values) 
-    sample = S.latin_hypercubes(nr_values=nr_values, orthogonal=True)
-    x_values = [sample[i][0] for i in range(len(sample))]
-    y_values = [sample[i][1] for i in range(len(sample))]
-    fig, ax = plt.subplots(nrows=1, ncols=1)
-    ax.plot(x_values, y_values, "o", markersize=10)
-    ax.set_xlabel("parameter " + param_names[0])
-    ax.set_ylabel("parameter " + param_names[1])
-    ax.set_title("Two-dimensional projection of sample points")
+    LH_sample = S.latin_hypercubes(nr_values=nr_values, orthogonal=True)
+
+    """Grid sampling """
+    G_sample = S.grid_sampling(nr_values=nr_values)
+    fig, ax = plt.subplots(nrows=2, ncols=1, squeeze=False, figsize=(8,12))
+    ax[0][0].plot(LH_sample["A"], LH_sample["B"], "o", markersize=10)
+    ax[0][0].set_xlabel("parameter " + param_names[0])
+    ax[0][0].set_ylabel("parameter " + param_names[1])
+    ax[0][0].set_title("Sample points using latin hypercubes")
+    ax[1][0].plot(G_sample[0], G_sample[1], "o", markersize=10)
+    ax[1][0].set_xlabel("parameter " + param_names[0])
+    ax[1][0].set_ylabel("parameter " + param_names[1])
+    ax[1][0].set_title("Sample points using grid sampling")
+    plt.tight_layout()
