@@ -12,9 +12,9 @@ Sophisticated agent-based models (ABMs) are increasingly used to model complex d
 In our project we set out to learn about these methods to calibrate or discover agent-based models given fine-grained observations from a system of interest. Along the way we discovered that there is a substantial gap between the approaches that are used in contemporary ABM modeling in research applications and the available learning resources.  Therefore, next to learning about these approaches ourselves, the main aim of the project is to compile learning resources on modern ABM approaches for teaching students and learning teachers. We provide a growing collection of literature on recent attempts to address challenges with ABMs [3]. We created a simple model (“A Bee Model”) with one free parameter that can be used as a benchmark model to test different approaches [4]. We provide translation of the model into a differentiable form and a mechanism to “learn” the model’s parameter from data [4]. Finally, we started to compile a list of learning and teaching materials for learning ABMs from data [4]. The long-term goal of the project is to transform this loose collection of knowledge into a more organized learning resource for ABMs.
 
 **References**  
-[1] Monti et al., On learning agent-based models from data, Scientific Reports (2023). 
-[2] Bergerson et al., Multi-Agent Inverse Reinforcement Learning: Suboptimal Demonstrations and Alternative Solution Concepts, arXiv (2021).
-[3] Zotero library „ABM from data“, [https://www.zotero.org/groups/5097156/abm_from_data](https://www.zotero.org/groups/5097156/abm_from_data](https://www.zotero.org/groups/5097156/abm_from_data](https://www.zotero.org/groups/5097156/abm_from_data).
+[1] Monti et al., On learning agent-based models from data, Scientific Reports (2023).   
+[2] Bergerson et al., Multi-Agent Inverse Reinforcement Learning: Suboptimal Demonstrations and Alternative Solution Concepts, arXiv (2021).  
+[3] Zotero library „ABM from data“, [https://www.zotero.org/groups/5097156/abm_from_data](https://www.zotero.org/groups/5097156/abm_from_data](https://www.zotero.org/groups/5097156/abm_from_data](https://www.zotero.org/groups/5097156/abm_from_data).  
 [4] GitHub repository with growing collection of learning resources: [https://github.com/lydiareader/abm-from-data](https://github.com/lydiareader/abm-from-data)
 
 
