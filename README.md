@@ -19,6 +19,7 @@ In our project we set out to learn about these methods to calibrate or discover 
 
 
 ## model
+V0 of the model is incredibly simple for educational purposes. The model space is a lattice with torroidal edges, defined by a width and a height. Flowers are placed on random cells. There is a single agent: a bee that moves randomly from cell to cell. When a bee is on the same cell as a flower, the bee will eat from the flower with some probability. The primary goal of the model was to see if the probability of eating from the flower could be derived using advanced ABM calibration methods.
 
 ## calibration-tools
 
